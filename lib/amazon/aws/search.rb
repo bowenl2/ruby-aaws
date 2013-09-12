@@ -408,7 +408,7 @@ module Amazon
 	    max_pages = PAGINATION[operation.kind]['max_page']
 	  else
 	    page_parameter = 'ItemPage'
-	    max_pages = 400
+	    max_pages = 10
 	  end
 
 	  # Iterate over pages 2 and higher, but go no higher than MAX_PAGES.

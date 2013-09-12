@@ -46,7 +46,7 @@ module Amazon
     #
     PAGINATION = {
       'ItemSearch'	      => { 'parameter' => 'ItemPage',
-						  'max_page' => 400 },
+						  'max_page' => 10 },
       'ItemLookup'	      => { 'parameter' => 'OfferPage',
 						  'max_page' => 100 },
       'ListLookup'	      => { 'parameter' => 'ProductPage',
