@@ -1,6 +1,3 @@
-# $Id: search.rb,v 1.49 2010/03/19 19:28:19 ianmacd Exp $
-#
-
 module Amazon
 
   module AWS
