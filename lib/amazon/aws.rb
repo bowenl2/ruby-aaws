@@ -87,6 +87,29 @@ module Amazon
     #
     class ObsolescenceError < AmazonError; end
 
+    # Class to handle limiting the rate of requests (default=1 per second)
+    #
+    class RateLimiter
+      require 'thread'
+
+      def initialize(per_second=1)
+	@per_second = per_second
+	@mutex = Mutex.new
+	@condition = ConditionVariable.new
+	@timer_thread = Thread.new { timer_loop }
+      end
+
+      def timer_loop
+	loop do
+	  @mutex.synchronize { @condition.signal }
+	  sleep 1.to_f / @per_second
+	end
+      end
+
+      def limit
+	@mutex.synchronize { @condition.wait(@mutex) }
+      end
+    end
 
     class Endpoint
 
@@ -107,6 +130,11 @@ module Amazon
       'uk' => Endpoint.new( 'http://ecs.amazonaws.co.uk/onca/xml' ),
       'us' => Endpoint.new( 'http://ecs.amazonaws.com/onca/xml' )
     }
+
+
+    def AWS.rate_limiter
+      @rate_limiter ||= RateLimiter.new
+    end
 
 
     # Fetch a page, either from the cache or by HTTP. This is used internally.
@@ -138,6 +166,12 @@ module Amazon
       #
       conn = request.conn || request.reconnect.conn
       user_agent = request.user_agent
+
+      # Rate limiting - we can't pass this point more than once
+      # per second per process
+      # TODO Implement earnings-based enhancements (you get more requests
+      # as you sell more of Amazon's stuff)
+      rate_limiter.limit
 
       Amazon.dprintf( 'Fetching http://%s%s ...', conn.address, url )
 

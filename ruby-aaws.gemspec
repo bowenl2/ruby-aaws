@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "ruby-aaws"
-  s.version = "0.9.0"
+  s.version = "0.9.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Ian Macdonald"]
-  s.date = "2011-09-20"
+  s.authors = ["Ian Macdonald", "Liam Bowen"]
+  s.date = "2013-09-11"
   s.description = "Ruby/AWS is a Ruby wrapper to the Amazon Product Advertising API."
   s.email = "code@papercavalier.com"
   s.extra_rdoc_files = [
@@ -75,7 +75,7 @@ Gem::Specification.new do |s|
     "test/tc_vehicle_operations.rb",
     "test/ts_aws.rb"
   ]
-  s.homepage = "http://github.com/winescout/ruby-aaws"
+  s.homepage = "http://github.com/bowenl2/ruby-aaws"
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.10"
   s.summary = "Ruby/AWS is a Ruby wrapper to the Amazon Product Advertising API."
