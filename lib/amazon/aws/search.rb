@@ -396,7 +396,7 @@ module Amazon
 	  #
 	  if nr_pages == 1 || ( tp = total_pages ) == 1
 	     yield result if block_given?
-	     return result
+	     return [ result ]
 	  end
 
 	  # Limit the number of pages to the maximum number available.
